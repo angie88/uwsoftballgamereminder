@@ -33,6 +33,8 @@ var scraperController = {
         var time = $(schedule).find($('.time')).text().replace(/\n/g, '').replace(/\t/g, '');
         var year = new Date(date).getFullYear();
         //console.log(date, opponent, time);
+
+        
         if (i >= 6) {
           scheduleArray[counter2] = {date: date, opponent: opponent, time: time};
           databaseScheduleArray[counter2] = {date: date, opponent: opponent, time: time, year: year};
