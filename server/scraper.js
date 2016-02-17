@@ -1,6 +1,7 @@
 const request = require('request');
 const cheerio = require('cheerio');
 const Schedule = require('./../database/scheduleModel');
+const moment = require('moment');
 
 var scraperController = {
   scraper: function(req, res, next){
@@ -32,19 +33,27 @@ var scraperController = {
         var opponent = $(schedule).find($('.opponent')).text().replace(/\n/g, '').replace(/\t/g, '');
         var time = $(schedule).find($('.time')).text().replace(/\n/g, '').replace(/\t/g, '');
         var year = new Date(date).getFullYear();
-        //console.log(date, opponent, time);
-
-        
+        var time2 = moment(time, ["h:mm A"]).format("HH:mm");
+        // if (time[5] === 'p') {
+        //   var hourBeforeColon = time.substring(0, str.indexOf(":"));
+        //   var hour = 12 + parseInt(hourBeforeColon);
+        //   var twentyFourHrFormat = time.replace(hourBeforeColon, JSON.stringify(hour));
+        //   console.log('PMPM', twentyFourHrFormat);
+        //
+        // } else {
+        //   console.log('AMAM', twentyFourHrFormat)
+        // }
         if (i >= 6) {
           scheduleArray[counter2] = {date: date, opponent: opponent, time: time};
           databaseScheduleArray[counter2] = {date: date, opponent: opponent, time: time, year: year};
           counter2 += 2;
         }
       });
-      Schedule.create(databaseScheduleArray, function(err, schedule) {
-        console.log(schedule);
-        res.send(scheduleArray);
-      });
+      // Schedule.create(databaseScheduleArray, function(err, schedule) {
+      //   console.log(schedule);
+      //   res.send(scheduleArray);
+      // });
+      res.send(scheduleArray);
 
     });
   }

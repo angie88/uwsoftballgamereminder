@@ -13,7 +13,7 @@ checkTimeAndSendReminder.sendReminder = sendReminder;
 function querySchedule () {
   var date = moment().format('MMM Do, YYYY');
   Schedule.find({date: 'Feb 12, 2016'}, function(err, games) {
-    console.log(games)
+    console.log(games);
   });
 };
 

@@ -33,4 +33,4 @@ app.listen(3000, function() {
 
 twilioService.querySchedule();
 
-console.log(moment().format('MMM Do, YYYY'));
+console.log(moment("3:45 p.m.", ["h:mm A"]).format("HH:mm"));
