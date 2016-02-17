@@ -1,6 +1,6 @@
 const request = require('request');
 const cheerio = require('cheerio');
-
+const Schedule = require('./../database/scheduleModel');
 
 var scraperController = {
   scraper: function(req, res, next){
@@ -11,13 +11,17 @@ var scraperController = {
       var counter = 0;
       var counter2 = 1;
       var scheduleArray = [];
+      var databaseScheduleArray = [];
       $('.odd').each(function(i, schedule) {
         var date = $(schedule).find($('.date')).children().text().trim();
             date = date + ', 2016';
         var opponent = $(schedule).find($('.opponent')).text().replace(/\n/g, '').replace(/\t/g, '');
         var time = $(schedule).find($('.time')).text().replace(/\n/g, '').replace(/\t/g, '');
+        var year = new Date(date).getFullYear();
+        console.log(year);
         if (i >= 6) {
           scheduleArray[counter] = {date: date, opponent: opponent, time: time};
+          databaseScheduleArray[counter] = {date: date, opponent: opponent, time: time, year: year};
           counter += 2;
         }
       });
@@ -27,14 +31,19 @@ var scraperController = {
             date = date + ', 2016';
         var opponent = $(schedule).find($('.opponent')).text().replace(/\n/g, '').replace(/\t/g, '');
         var time = $(schedule).find($('.time')).text().replace(/\n/g, '').replace(/\t/g, '');
-
+        var year = new Date(date).getFullYear();
         //console.log(date, opponent, time);
         if (i >= 6) {
           scheduleArray[counter2] = {date: date, opponent: opponent, time: time};
+          databaseScheduleArray[counter2] = {date: date, opponent: opponent, time: time, year: year};
           counter2 += 2;
         }
       });
-      res.send(scheduleArray)
+      Schedule.create(databaseScheduleArray, function(err, schedule) {
+        console.log(schedule);
+        res.send(scheduleArray);
+      });
+
     });
   }
 }
