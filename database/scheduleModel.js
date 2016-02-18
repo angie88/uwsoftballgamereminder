@@ -5,7 +5,8 @@ const scheduleSchema = new Schema({
   date: String,
   time: String,
   opponent: String,
-  year: Number
+  year: Number,
+  twentyFourHour: String
 })
 
 module.exports = mongoose.model('Schedule', scheduleSchema);

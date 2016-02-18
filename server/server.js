@@ -9,6 +9,9 @@ const twilioService = require('./../TwilioService/sendReminder.js');
 const moment = require('moment');
 
 
+
+
+
 mongoose.connect('mongodb://localhost/UWSoftballSchedule');
 mongoose.connection.once('open', function() {
   console.log('Connected with MongoDB UW Softball Schedule');
@@ -26,11 +29,16 @@ app.get('/', function(req,res) {
 
 app.get('/schedule', scheduleController.saveSchedule, scraperController.scraper);
 
-
+app.get('/getText', function(req, res) {
+  twilioService.querySchedule();
+  res.redirect('/')
+})
 app.listen(3000, function() {
   console.log('Server is listening on port 3000');
 });
 
-twilioService.querySchedule();
 
-console.log(moment("3:45 p.m.", ["h:mm A"]).format("HH:mm"));
+
+
+
+setInterval(function(){twilioService.querySchedule()}, 60000);

@@ -5,6 +5,7 @@ var Schedule = require('./Schedule');
 var App = React.createClass({
   render: function () {
     return (
+
       <div id='App'>
         <Schedule />
       </div>

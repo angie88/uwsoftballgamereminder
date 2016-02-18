@@ -1,4 +1,11 @@
-
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-size: 45%;
+  background-image: url("http://tribkcpq.files.wordpress.com/2013/04/uw.jpg");
+  background-position: right bottom;
+  background-repeat: no-repeat;
+}
 
 
 #App {
@@ -17,4 +24,22 @@
 .schedule {
   width: 80%;
   height: 100%;
+  color: #4F1E9C;
+}
+
+#phone {
+  border-radius: 3px;
+  font-size: 20px;
+}
+
+#menubar {
+  height: 50px;
+  background-color: #4F1E9C;
+  width: 100%
+}
+
+#sendTextButton {
+  display: inline-block;
+  height: 300px;
+  width: 200px;
 }

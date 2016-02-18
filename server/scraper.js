@@ -19,10 +19,12 @@ var scraperController = {
         var opponent = $(schedule).find($('.opponent')).text().replace(/\n/g, '').replace(/\t/g, '');
         var time = $(schedule).find($('.time')).text().replace(/\n/g, '').replace(/\t/g, '');
         var year = new Date(date).getFullYear();
-        console.log(year);
+        var time2 = moment(time, ["h:mm A"]).format("HH:mm");
+
+
         if (i >= 6) {
           scheduleArray[counter] = {date: date, opponent: opponent, time: time};
-          databaseScheduleArray[counter] = {date: date, opponent: opponent, time: time, year: year};
+          databaseScheduleArray[counter] = {date: date, opponent: opponent, time: time, year: year, twentyFourHour: time2};
           counter += 2;
         }
       });
@@ -34,27 +36,17 @@ var scraperController = {
         var time = $(schedule).find($('.time')).text().replace(/\n/g, '').replace(/\t/g, '');
         var year = new Date(date).getFullYear();
         var time2 = moment(time, ["h:mm A"]).format("HH:mm");
-        // if (time[5] === 'p') {
-        //   var hourBeforeColon = time.substring(0, str.indexOf(":"));
-        //   var hour = 12 + parseInt(hourBeforeColon);
-        //   var twentyFourHrFormat = time.replace(hourBeforeColon, JSON.stringify(hour));
-        //   console.log('PMPM', twentyFourHrFormat);
-        //
-        // } else {
-        //   console.log('AMAM', twentyFourHrFormat)
-        // }
+
         if (i >= 6) {
           scheduleArray[counter2] = {date: date, opponent: opponent, time: time};
-          databaseScheduleArray[counter2] = {date: date, opponent: opponent, time: time, year: year};
+          databaseScheduleArray[counter2] = {date: date, opponent: opponent, time: time, year: year, twentyFourHour: time2};
           counter2 += 2;
         }
       });
-      // Schedule.create(databaseScheduleArray, function(err, schedule) {
-      //   console.log(schedule);
-      //   res.send(scheduleArray);
-      // });
-      res.send(scheduleArray);
-
+      Schedule.create(databaseScheduleArray, function(err, schedule) {
+        console.log(schedule);
+        res.send(scheduleArray);
+      });
     });
   }
 }

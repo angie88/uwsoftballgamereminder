@@ -23,10 +23,6 @@ var Schedule = React.createClass({
 
     return (
       <div id='Schedule'>
-        <form id='phone' onSubmit={this.formPhoneNumber}>
-          <input type='text' name='phonenumber' />
-          <input type='submit' />
-        </form>
         <ScheduleData schedule={this.state.schedule}/>
       </div>
     )
